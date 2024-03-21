@@ -1,10 +1,12 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { COLORS, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
+import { COLORS, WEIGHTS, QUERIES } from "../../constants";
+import Logo from "../Logo";
+import SuperHeader from "../SuperHeader";
+import Icon from "../Icon";
+import UnstyledButton from "../UnstyledButton";
+import MobileMenu from "../MobileMenu";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -21,6 +23,13 @@ const Header = () => {
         <Side>
           <Logo />
         </Side>
+        <MobileButtonsContainer>
+          <Icon id={"shopping-bag"} />
+          <Icon id={"search"} />
+          <UnstyledButton onClick={() => setShowMobileMenu(true)}>
+            <Icon id={"menu"} />
+          </UnstyledButton>
+        </MobileButtonsContainer>
         <Nav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
@@ -29,7 +38,6 @@ const Header = () => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
-        <Side />
       </MainHeader>
 
       <MobileMenu
@@ -46,16 +54,30 @@ const MainHeader = styled.div`
   padding: 18px 32px;
   height: 72px;
   border-bottom: 1px solid ${COLORS.gray[300]};
+
+  @media ${QUERIES.phone} {
+    border-top: 4px solid ${COLORS.gray[900]};
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
 `;
 
 const Nav = styled.nav`
   display: flex;
   gap: 48px;
   margin: 0px 48px;
+
+  @media ${QUERIES.phone} {
+    display: none;
+  }
 `;
 
 const Side = styled.div`
   flex: 1;
+
+  @media ${QUERIES.phone} {
+    flex: unset;
+  }
 `;
 
 const NavLink = styled.a`
@@ -67,6 +89,15 @@ const NavLink = styled.a`
 
   &:first-of-type {
     color: ${COLORS.secondary};
+  }
+`;
+
+const MobileButtonsContainer = styled.div`
+  display: none;
+
+  @media ${QUERIES.phone} {
+    display: flex;
+    gap: 1rem;
   }
 `;
 
